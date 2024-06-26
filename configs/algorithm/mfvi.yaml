@@ -1,0 +1,8 @@
+# Gaussian Mean Field Variational Inference (MFVI)
+name: mfvi
+iters: 100_000
+batch_size: ${target.all.batch_size}
+step_size: ${target.mfvi.step_size}
+
+init_mean: 0.
+init_std: ${target.mfvi.initial_scale}

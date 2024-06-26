@@ -1,0 +1,24 @@
+# @package _global_
+defaults:
+  - target: gaussian
+  - algorithm: mfvi
+  - setup
+  - _self_
+
+seed: 0  # Random Seed
+log_dir: logs/${algorithm.name}_${target.name}_${target.dim}D_${seed}_${now:%Y-%m-%d}/${now:%H-%M-%S}
+#use_jit: False  # Disable jit for better debugging
+use_jit: True
+eval_samples: 2000  # Number of samples used for evaluation
+n_evals: 100  # Number of evaluations during training
+moving_average:  # Moving average over subsequent evaluations
+  use_ma: True
+  window_size: 5
+discrepancies: [sd, mmd]  # IPMs: Sinkhorn (Entropy-regularized Wasserstein Distance) and Maximum Mean Discrepancy
+compute_emc: True  # Entropic Mode Coverage
+compute_forward_metrics: True
+use_wandb: False
+verbose: True  # Intermediate results are printed if True
+visualize_samples: True  # Samples are visualized if target density permitts
+save_samples: True  # Save samples with highest ELBO
+save_model: False  # Checkpointing is currently not implemented

@@ -1,0 +1,5 @@
+dim: ${target.dim}
+
+num_layers: 2
+num_hid: 64
+out_clip: 1e4

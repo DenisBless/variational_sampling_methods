@@ -1,0 +1,44 @@
+# Sequential Controlled Langevin Diffusions (SCLD)
+name: scld
+num_steps: 128  # Total number of steps / bridges. Defines the number of steps per sub-trajectory as n_steps / n_steps_per_traj
+n_sub_traj: 1
+step_size: 1e-5  # Learning rate
+batch_size: 2000
+init_std: ${target.flow_transport.initial_scale}  # Standard deviation of the prior distribution
+max_diffusion: 30
+
+grad_clip: 1.  # Value for L2 Gradient clipping. If negative, no gradient clipping is applied
+target_grad_clip: -1  # Clips the value of the gradient of the target used in Langevin dynamics
+loss: "rev_lv"  # Choose between [rev_kl, fwd_kl, rev_lv, fwd_lv, rev_tb, fwd_tb]
+
+logZ_step_size: 1e-3 # Learning rate for updating log Z for second-moment loss
+init_logZ: 0. # Initial value for learnable log Z for second-moment loss
+
+n_sim: 8_000  # Outer loop iterations: Simulates the SDE + MCMC and puts samples in the buffer
+n_updates_per_sim: 1  # Inner loop iterations: Uses samples from the buffer to optimze the model on sub-trajectories
+
+use_resampling: False  # Flag whether to use resampling or not
+resample_threshold: 0.3  # Threshold for resampling
+resampler: # Type of resampling scheme. Choose between [multinomial, systematic]
+  _target_: algorithms.scld.resampling.get_resampler
+  identifier: multinomial
+
+use_markov: False  # Flag whether to use MCMC or not
+
+buffer:
+  max_length_in_batches: 1. # Maximum length of buffer in batches. Setting this to 1 corresponds to not using a buffer
+  min_length_in_batches: 1. # Can be ignored
+  sample_with_replacement: False
+  prioritized: False
+
+defaults:
+  - model: pisgrad_net  # Parameterized model
+  - noise_schedule: cosine # Scheduler for the diffusion coefficient. Choose between [const, linear, cosine]
+  - mcmc: hmc # MCMC transition kernel. Choose between [hmc, mh]
+
+model:
+  bias_init: 0.  # Initialization of the last layers' bias of the time-dependent network
+  weight_init: 1e-8  # Initialization of the last layers' weights of the time-dependent network
+
+noise_schedule:
+  reverse: False  # Ensures correct that noise scheduler goes in the right direction (time-wise)

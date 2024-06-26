@@ -1,0 +1,16 @@
+name: aft
+batch_size: ${target.all.batch_size}
+num_temps: 128
+resample_threshold: 0.3
+use_resampling: True
+use_markov: True
+step_size: ${target.flow_transport.step_size}
+free_energy_iters: 400
+stopping_criterion: 'time'
+
+init_mean: 0.
+init_std: ${target.flow_transport.initial_scale}
+
+defaults:
+  - mcmc/hmc
+  - flows/diagonal_affine

@@ -1,0 +1,6 @@
+# Inverse Autoregressive Flow
+flow_type: 'AffineInverseAutoregressiveFlow'
+intermediate_hids_per_dim: 64
+num_layers: 1
+identity_init: True
+bias_last: True

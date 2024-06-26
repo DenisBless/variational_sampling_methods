@@ -1,0 +1,4 @@
+weight_stepsize_adapter_type: "fixed"
+weight_stepsize_adapter_config:
+  initial_stepsize: 1.
+  

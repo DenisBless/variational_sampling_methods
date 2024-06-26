@@ -1,0 +1,23 @@
+# General Bridge Sampler (GBS)
+name: gbs
+step_size: ${target.gbs.step_size}
+batch_size: ${target.all.batch_size}
+iters: 1
+init_std: ${target.gbs.initial_scale}
+num_steps: 128
+loss: "elbo"  # Currently only supports 'elbo'
+grad_clip: 1.
+max_diffusion: ${target.gbs.max_diffusion}
+learn_prior: False
+learn_betas: True
+
+defaults:
+  - model: pisgrad_net
+  - noise_schedule: cosine
+
+model:
+  bias_init: 1.
+  weight_init: 1e-8
+
+noise_schedule:
+  reverse: False

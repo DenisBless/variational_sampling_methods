@@ -1,0 +1,11 @@
+dim: ${target.dim}
+
+state_time_num_layers: 2
+state_time_num_hid: 64
+state_time_clip: 1e4
+
+use_lgv: True
+lgv_per_dim: True
+lgv_num_layers: 2
+lgv_num_hid: 64
+lgv_clip: 1e2

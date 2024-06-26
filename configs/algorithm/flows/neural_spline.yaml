@@ -1,0 +1,11 @@
+# Neural Spline Flow
+flow_type: 'SplineInverseAutoregressiveFlow'
+num_spline_bins: 10
+lower_lim: -60.
+intermediate_hids_per_dim: 64
+num_layers: 1
+identity_init: True
+bias_last: True
+upper_lim: 60.
+min_bin_size: 1e-2
+min_derivative: 1e-2

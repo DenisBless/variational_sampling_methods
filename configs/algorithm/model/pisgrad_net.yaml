@@ -1,0 +1,9 @@
+dim: ${target.dim}
+
+num_layers: 2
+num_hid: 64
+outer_clip: 1e4
+inner_clip: 1e2
+
+weight_init: 1e-8
+bias_init: 0.

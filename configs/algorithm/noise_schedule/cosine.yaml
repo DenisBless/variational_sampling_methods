@@ -1,0 +1,6 @@
+_target_: algorithms.common.diffusion_related.noise_schedule.get_cosine_noise_schedule
+total_steps: ${algorithm.num_steps}
+sigma_min: 0.01
+sigma_max: ${algorithm.max_diffusion}
+s: 0.008
+pow: 2

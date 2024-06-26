@@ -1,0 +1,15 @@
+# Gaussian Mixture Model Variational Inference (GMMVI)
+name: gmmvi
+gmmvi_config: ConfigDict()
+algorithm: 'SAQTRUX'
+iters: 3000
+use_sample_database: False
+max_database_size: 1e6
+temperature: 1.
+
+model_initialization:
+  use_diagonal_covs: False
+  num_initial_components: 10
+  prior_mean: 0.
+  prior_scale: ${target.gmmvi.initial_scale}
+  init_std: ${target.gmmvi.initial_scale}

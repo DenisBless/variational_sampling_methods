@@ -1,0 +1,2 @@
+_target_: algorithms.common.diffusion_related.noise_schedule.get_constant_noise_schedule
+value: ${algorithm.max_diffusion}

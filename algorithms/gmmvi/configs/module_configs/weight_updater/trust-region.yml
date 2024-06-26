@@ -1,0 +1,4 @@
+weight_updater_type: "trust-region"
+weight_updater_config:
+  use_self_normalized_importance_weights: True
+  

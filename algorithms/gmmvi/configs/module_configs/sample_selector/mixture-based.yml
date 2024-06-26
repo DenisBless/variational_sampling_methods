@@ -1,0 +1,4 @@
+sample_selector_type: "mixture-based"
+sample_selector_config:
+  desired_samples_per_component: 100
+  ratio_reused_samples_to_desired: 0.

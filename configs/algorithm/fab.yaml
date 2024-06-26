@@ -1,0 +1,62 @@
+# FAB
+name: fab
+alpha: 2  # alpha-divergence param
+use_kl_loss: False  # additional KL loss
+w_adjust_clip: 10.
+
+smc:
+  use_resampling: False
+  n_intermediate_distributions: 12
+  spacing_type: "linear"
+  transition_operator: "hmc"  # [hmc or metropolis]
+  point_is_valid_fn_type: "default"   # [default, in_bounds] - use in_bounds if we want to restrict SMC to the below bounds.
+
+  hmc:
+    n_outer_steps: 1
+    n_inner_steps: 10
+    init_step_size: 1e-1
+    target_p_accept: 0.65
+    tune_step_size: True
+
+  metropolis:
+    n_outer_steps: 1
+    init_step_size: 10.
+    target_p_accept: 0.65  # Setting this lower can be good for exploration.
+    tune_step_size: True  # If false, then init_step_size needs to be reasonably good.
+
+buffer:
+  with_buffer: True
+  buffer_max_length_in_batches: 400
+  buffer_min_length_in_batches: 40
+  n_updates_per_smc_forward_pass: 4
+
+flow:
+  # Initial Distribution
+  base_loc: 0
+  base_scale: ${target.fab.initial_scale}
+
+  n_layers: 8
+  conditioner_mlp_units: [64, 64]  # Small MLP allows for fast local run, and can help stability.
+  transform_type: "real_nvp"  # spline or real_nvp
+  act_norm: False  # Set to true if using spline flow (especially if spline_max and spline_min are not known).
+  identity_init: True
+  spline_max: 10.  # If using spline then it helps to have bounds to roughly match problem.
+  spline_min: -10.
+  spline_num_bins: 8
+
+training:
+  optimizer:
+    init_lr: ${target.fab.step_size}
+    optimizer_name: "adam"
+    use_schedule: False
+    peak_lr: 2e-4
+    end_lr: 0
+    warmup_n_epoch: 10
+    max_global_norm: "null"
+    max_param_grad: "null"
+    dynamic_grad_ignore_and_clip: True
+    dynamic_grad_ignore_factor: 10.  # When to fully ignore gradient.
+    dynamic_grad_norm_factor: 2.  # When to clip gradient norm.
+    dynamic_grad_norm_window: 100  # Window to track median gradient norm over.
+  n_epoch: 3000
+  batch_size: ${target.all.batch_size}

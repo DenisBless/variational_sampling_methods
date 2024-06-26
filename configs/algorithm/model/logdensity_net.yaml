@@ -1,0 +1,7 @@
+num_layers: 4
+num_hid: 128
+outer_clip: 1e4
+inner_clip: 1e2
+
+weight_init: 1e-8
+bias_init: 0.

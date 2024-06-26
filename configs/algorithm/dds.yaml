@@ -1,0 +1,19 @@
+# Time-reversed Diffusion Sampler (DIS)
+name: dds
+step_size: ${target.dds.step_size}
+batch_size: ${target.all.batch_size}
+iters: 40000
+init_std: ${target.dds.initial_scale}
+num_steps: 128
+loss: "elbo"  # Currently only supports 'elbo'
+grad_clip: 1.
+noise_scale: 6.
+max_diffusion: 6.
+
+defaults:
+  - model: pisgrad_net
+  - noise_schedule: cosine
+
+model:
+  bias_init: 1.  # Initialization of the last layers' bias of the time-dependent network
+  weight_init: 1e-8  # Initialization of the last layers' weights of the time-dependent network

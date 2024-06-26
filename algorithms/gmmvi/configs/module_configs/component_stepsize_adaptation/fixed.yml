@@ -1,0 +1,3 @@
+component_stepsize_adapter_type: "fixed"
+component_stepsize_adapter_config:
+  initial_stepsize: 1.0e-5

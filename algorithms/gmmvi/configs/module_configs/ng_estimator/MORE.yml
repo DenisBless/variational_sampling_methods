@@ -1,0 +1,5 @@
+ng_estimator_type: "MORE"
+ng_estimator_config:
+  initial_l2_regularizer: 0.000000000001
+  only_use_own_samples: False
+  use_self_normalized_importance_weights: True

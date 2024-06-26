@@ -1,0 +1,17 @@
+# Wandb
+wandb:
+  entity: # Your identity here
+  project: sampling_bench
+  resume: allow
+  mode: run
+  name:
+  tags:
+  id:
+
+# Hydra
+hydra:
+  run:
+    dir: ${log_dir}
+  sweep:
+    dir: ${hydra.run.dir}
+    subdir: ${hydra.job.override_dirname}

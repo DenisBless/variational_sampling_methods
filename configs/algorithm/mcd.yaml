@@ -1,0 +1,24 @@
+# Monte Carlo Diffuions (MCD)
+name: mcd
+step_size: ${target.od_langevin.step_size}
+batch_size: ${target.all.batch_size}
+iters: 40000
+init_std: ${target.od_langevin.initial_scale}
+num_steps: 128
+loss: "elbo"  # Currently only supports 'elbo'
+grad_clip: 1.
+max_diffusion: ${target.od_langevin.max_diffusion}
+learn_prior: False
+learn_betas: True
+learn_diffusion_coefficient: True
+
+defaults:
+  - model: pisgrad_net
+  - noise_schedule: cosine
+
+model:
+  bias_init: 0.
+  weight_init: 1e-8
+
+noise_schedule:
+  reverse: False

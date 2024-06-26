@@ -1,0 +1,6 @@
+# Hamiltonian Monte Carlo (HMC) Config
+mcmc_kernel: 'hmc'
+hmc_step_times: [0., 0.5]
+hmc_step_sizes: ${target.hmc.hmc_step_size}
+hmc_steps_per_iter: 1
+hmc_num_leapfrog_steps: 10

@@ -1,0 +1,78 @@
+name: nice_fashion
+dim: 784
+has_entropy: True
+
+fn:
+  _target_: targets.nice.NiceTarget
+  dataset: fashion_mnist
+  dim: ${target.dim}
+  log_Z: 0.
+  can_sample: True
+  sample_bounds: None
+
+# Experiment-specific algorithm parameters
+# ----------------------------------------
+
+mfvi: # Gaussian Mean Field Variational Inference
+  initial_scale: 5.
+  step_size: 1e-3
+
+gmmvi: # Gaussian Mixture Model Variational Inference
+  initial_scale: 5.
+
+nfvi: # Normalizing Flow Variational Inference
+  initial_scale: 5.
+  step_size: 1e-3
+
+hmc:  # Hamilton Monte Carlo
+  hmc_step_size: [0.5, 0.5]
+
+smc: # Sequential Monte Carlo Sampler
+  initial_scale: 5.
+
+flow_transport: # Flow Transport Methods (AFT/CRAFT)
+  initial_scale: 5.
+  step_size: 1e-3
+
+fab: # Flow Annealed Importance Sampling Bootstrap
+  initial_scale: 5.
+  step_size: 1e-4
+
+ud_langevin:  # Underdamped Langevin Methods (UHA/LDVI)
+  initial_scale: 5.
+  step_size: 5e-4
+  eps: 1e-2
+
+od_langevin:  # Overdamped Langevin Methods (ULA/MCD/CMCD)
+  max_diffusion: 10.
+  initial_scale: 5.
+  step_size: 5e-4
+
+cmcd:  # Controlled Monte Carlo Diffusions
+  max_diffusion: 10.
+  initial_scale: 5.
+  step_size: 5e-4
+
+pis: # Path Integral Sampler
+  max_diffusion: 20. # Divided by 4 roughly gives the initial scale
+  step_size: 5e-4
+
+dis: # Time-reversed Diffusion Sampler
+  initial_scale: 5.
+  step_size: 5e-4
+
+dds: # Denoising Diffusion Sampler
+  initial_scale: 5.
+  step_size: 5e-4
+
+gfn: # Generative Flow Networks
+  max_diffusion: 20. # Divided by 4 roughly gives the initial scale
+  step_size: 5e-4
+
+gbs:  # General Schroedinger Bridge
+  max_diffusion: 10.
+  initial_scale: 5.
+  step_size: 5e-4
+
+all: # Parameters that are shared between all algorithms
+  batch_size: 1000

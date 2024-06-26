@@ -1,0 +1,5 @@
+# Random Walk Metropolis (RWM) / Metropolis Hastings (MH) Config
+mcmc_kernel: 'rwm'
+rwm_step_times: [0., 0.5]
+rwm_step_sizes: [0.1, 0.1]
+rwm_steps_per_iter: 0

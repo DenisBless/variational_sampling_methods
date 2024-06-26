@@ -1,0 +1,9 @@
+num_component_adapter_type: "adaptive"
+num_component_adapter_config:
+  del_iters: 100
+  add_iters: 30
+  max_components: 1000
+  thresholds_for_add_heuristic: [ 5000., 1000.0, 500.0, 200.0, 100.0, 50.0 ]
+  min_weight_for_del_heuristic: 1.0e-6
+  num_database_samples: 100000
+  num_prior_samples: 100000

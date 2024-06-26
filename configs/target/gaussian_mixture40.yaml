@@ -1,0 +1,81 @@
+name: gaussian_mixture40
+num_components: 40
+dim: 2
+has_entropy: True
+
+fn:
+  _target_: targets.gmm40.GMM40
+  num_components: ${target.num_components}
+  dim: ${target.dim}
+  log_Z: 0.
+  can_sample: True
+  sample_bounds: None
+  loc_scaling: 40
+  scale_scaling: 1
+
+# Experiment-specific algorithm parameters
+# ----------------------------------------
+
+mfvi: # Gaussian Mean Field Variational Inference
+  initial_scale: 40.
+  step_size: 1e-2
+
+gmmvi: # Gaussian Mixture Model Variational Inference
+  initial_scale: 40.
+
+nfvi: # Normalizing Flow Variational Inference
+  initial_scale: 40.
+  step_size: 1e-3
+
+hmc:  # Hamilton Monte Carlo
+  hmc_step_size: [0.2, 0.2]
+
+smc: # Sequential Monte Carlo Sampler
+  initial_scale: 40.
+
+flow_transport: # Flow Transport Methods (AFT/CRAFT)
+  initial_scale: 40.
+  step_size: 1e-4
+
+fab: # Flow Annealed Importance Sampling Bootstrap
+  initial_scale: 40.
+  step_size: 1e-4
+
+ud_langevin:  # Underdamped Langevin Methods (UHA/LDVI)
+  max_diffusion: 1.
+  initial_scale: 1.
+  step_size: 5e-4
+
+od_langevin:  # Overdamped Langevin Methods (ULA/MCD)
+  max_diffusion: 1.
+  initial_scale: 1.
+  step_size: 5e-4
+
+cmcd:  # Controlled Monte Carlo Diffusions
+  max_diffusion: 10.
+  initial_scale: 40.
+  step_size: 5e-4
+
+pis: # Path Integral Sampler
+  max_diffusion: 160. # Divided by 4 roughly gives the initial scale
+  step_size: 5e-4
+
+dis: # Time-reversed Diffusion Sampler
+  initial_scale: 40.
+  step_size: 5e-4
+
+dds: # Denoising Diffusion Sampler
+  initial_scale: 40.
+  step_size: 5e-4
+
+gfn: # Generative Flow Networks
+  max_diffusion: 160. # Divided by 4 roughly gives the initial scale
+  step_size: 5e-4
+
+gbs:  # General Bridge Sampler
+  max_diffusion: 10.
+  initial_scale: 40.
+  step_size: 5e-4
+
+all: # Parameters that are shared between all algorithms
+  batch_size: 2000

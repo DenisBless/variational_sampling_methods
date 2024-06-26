@@ -1,0 +1,4 @@
+component_stepsize_adapter_type: "decaying"
+component_stepsize_adapter_config:
+  initial_stepsize: 1.
+  annealing_exponent: 0.55

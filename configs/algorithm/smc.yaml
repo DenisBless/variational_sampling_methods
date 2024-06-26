@@ -1,0 +1,12 @@
+name: smc
+batch_size: ${target.all.batch_size}
+num_temps: 128
+resample_threshold: 0.3
+use_resampling: True
+use_markov: True
+
+init_mean: 0.
+init_std: ${target.smc.initial_scale}
+
+defaults:
+  - mcmc/hmc

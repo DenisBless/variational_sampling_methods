@@ -1,0 +1,8 @@
+weight_stepsize_adapter_type: "improvement_based"
+weight_stepsize_adapter_config:
+  initial_stepsize: 1.
+  min_stepsize: 0.0001
+  max_stepsize: 1.
+  stepsize_inc_factor: 1.15
+  stepsize_dec_factor: 0.85
+  

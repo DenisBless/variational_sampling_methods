@@ -1,0 +1,23 @@
+# Generative Flow (GFlow) Networks (GFN)
+name: gfn
+step_size: 1e-4
+batch_size: ${target.all.batch_size}
+iters: 40000
+init_std: 1.
+num_steps: 128
+loss: "elbo"  # elbo, lv or tb
+grad_clip: 1.
+init_logZ: 0.
+logZ_step_size: 1e-2
+max_diffusion: ${target.pis.max_diffusion}
+
+defaults:
+  - model: pisgrad_net
+  - noise_schedule: cosine
+
+model:
+  bias_init: 1.  # Initialization of the last layers' bias of the time-dependent network
+  weight_init: 1e-8  # Initialization of the last layers' weights of the time-dependent network
+
+noise_schedule:
+  reverse: False

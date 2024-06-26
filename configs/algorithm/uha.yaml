@@ -1,0 +1,21 @@
+# Uncorrected Hamiltonian Annealing (UHA)
+name: uha
+step_size: ${target.ud_langevin.step_size}
+batch_size: ${target.all.batch_size}
+iters: 40000
+init_std: 10. #${target.ud_langevin.initial_scale}
+num_steps: 128
+loss: "elbo"  # Currently only supports 'elbo'
+grad_clip: 1.
+max_diffusion: 1. #${target.ud_langevin.max_diffusion}
+init_momentum: .01 #${target.ud_langevin.init_momentum}
+learn_prior: True
+learn_betas: True
+learn_friction: True
+learn_diffusion_coefficient: True
+
+defaults:
+  - noise_schedule: const
+
+noise_schedule:
+  reverse: False
