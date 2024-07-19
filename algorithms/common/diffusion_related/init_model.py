@@ -5,7 +5,7 @@ from algorithms.common.models.pisgrad_net import PISGRADNet
 import jax
 import jax.numpy as jnp
 
-from algorithms.scld.scld_utils import flattened_traversal
+from utils.helper import flattened_traversal
 
 
 def init_model(key, dim, alg_cfg):

@@ -91,6 +91,13 @@ def replace_invalid(x, replacement=0.):
 def inverse_softplus(x):
     return jnp.log(jnp.exp(x) - 1)
 
+def flattened_traversal(fn):
+    def mask(data):
+        flat = traverse_util.flatten_dict(data)
+        return traverse_util.unflatten_dict({k: fn(k, v) for k, v in flat.items()})
+
+    return mask
+
 
 if __name__ == '__main__':
     init_std = 10

@@ -71,9 +71,5 @@ def get_train_fn(alg_name):
         from algorithms.gbs.gbs_trainer import gbs_trainer
         return gbs_trainer
 
-    elif alg_name == 'scld':
-        from algorithms.scld.scld import scld_trainer
-        return scld_trainer
-
     else:
         raise ValueError(f'No algorithm named {alg_name}.')
