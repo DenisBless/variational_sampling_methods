@@ -25,7 +25,7 @@ def per_sample_rnd(seed, model_state, params, sde_tuple, target, num_steps, nois
 
         # Compute SDE components
         sigma_t = sigmas(step)
-        sigma_int += sigma_t * dt
+        sigma_int += sigma_t **2 * dt
         langevin = jax.lax.stop_gradient(jax.grad(langevin_init)(x, step))
         model_output = model_state.apply_fn(params, x, step * jnp.ones(1), langevin)
         key, key_gen = jax.random.split(key_gen)
@@ -53,7 +53,7 @@ def per_sample_rnd(seed, model_state, params, sde_tuple, target, num_steps, nois
         step = per_step_input
 
         sigma_t = sigmas(step)
-        sigma_int += sigma_t * dt
+        sigma_int += sigma_t ** 2 * dt
         t = step / num_steps
         shrink = (t - dt) / t
 
@@ -84,14 +84,14 @@ def per_sample_rnd(seed, model_state, params, sde_tuple, target, num_steps, nois
         aux = (init_x, jnp.array(0.), key)
         aux, per_step_output = jax.lax.scan(simulate_prior_to_target, aux, jnp.arange(1, num_steps + 1)[::-1])
         final_x, final_sigma, _ = aux
-        terminal_cost = ref_log_prob(final_x, final_sigma) - target_log_prob(final_x)
+        terminal_cost = ref_log_prob(final_x, jnp.sqrt(final_sigma)) - target_log_prob(final_x)
     else:
         init_x = jnp.squeeze(target.sample(key, (1,)))
         key, key_gen = jax.random.split(key_gen)
         aux = (init_x, jnp.array(0.), key)
         aux, per_step_output = jax.lax.scan(simulate_target_to_prior, aux, jnp.arange(1, num_steps + 1))
         final_x, final_sigma, _ = aux
-        terminal_cost = ref_log_prob(init_x, final_sigma) - target_log_prob(init_x)
+        terminal_cost = ref_log_prob(init_x, jnp.sqrt(final_sigma)) - target_log_prob(init_x)
 
     running_cost, stochastic_cost, x_t = per_step_output
     return final_x, running_cost, stochastic_cost, terminal_cost, x_t
