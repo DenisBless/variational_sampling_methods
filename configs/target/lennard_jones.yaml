@@ -1,0 +1,12 @@
+name: lennard_jones
+dim: 13 # number of nodes
+has_entropy: False
+
+fn:
+  _target_: targets.lennard_jones.LennardJones
+  dim: ${target.dim}  # #nodes * #params-per-node (e.g. 2 or 3 for 2D or 3D)
+  can_sample: False
+  spatial_dim: 3
+
+# Experiment-specific algorithm parameters
+# ----------------------------------------
